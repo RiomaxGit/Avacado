@@ -11,3 +11,5 @@ effectively with others. Utilizing Django Channels (web sockets),
 messages are delivered instantly, ensuring a smooth and
 interactive chatting experience.
 
+### Figma UI:
+[UI Design](https://www.figma.com/file/W88cIOOplUPLUBbk1IpBMb/Untitled?type=design&node-id=1%3A2&mode=design&t=Bk9eVOYEbv4wnGGL-1)

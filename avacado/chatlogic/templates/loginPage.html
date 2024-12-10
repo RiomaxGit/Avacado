@@ -1,0 +1,12 @@
+<html>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <div class="branding">AVACADO</div>
+      {{form.as_p}}
+      <div class="btn-container"><button type="submit">Login</button></div>
+    </form>
+  </body>
+</html>

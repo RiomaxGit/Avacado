@@ -1,0 +1,32 @@
+body {
+    background-color: #222;
+    color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+}
+
+a {
+    color: white;
+}
+
+.chat-logout {
+    margin: 20px;
+}
+
+.username {
+    float: left;
+    font-weight: bold;
+    color: #04a895;
+    font-size: 25px;
+    text-decoration: underline;
+}

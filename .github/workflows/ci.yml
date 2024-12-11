@@ -33,7 +33,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
-        python-version: 3.9
+        python-version: 3.10.12
 
     - name: Install dependencies
       run: |
@@ -47,8 +47,10 @@ jobs:
 
     - name: Run migrations
       run: |
+        cd avacado  # Change to the 'avacado' directory
         python manage.py migrate
 
     - name: Run tests
       run: |
+        cd avacado  # Change to the 'avacado' directory
         python manage.py test

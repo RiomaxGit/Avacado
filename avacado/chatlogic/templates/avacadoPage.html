@@ -1,0 +1,66 @@
+<html>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <body>
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1>AVACADO</h1>
+            </div>
+            <div class="chat-logout">
+                {% if request.user.is_authenticated %}
+                <div class="username">{{ request.user|title }} </div>
+                <div style="float: right;"><a href="{% url 'logout-user' %}">Logout</a>
+                </div>
+                <div style="clear: both;"></div>
+                {% endif %}
+            </div>
+            <div class="chat__item__container" id="id_chat_item_container">
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="id_message_send_input" placeholder="Type your message..." />
+                <button type="submit" id="id_message_send_button">Send</button>
+            </div>
+        </div>
+        <script>
+            const chatSocket = new WebSocket("ws://" + window.location.host + "/");
+            chatSocket.onopen = function (e) {
+                console.log("The connection was set up successfully!");
+            };
+            chatSocket.onclose = function (e) {
+                console.log("Something unexpected happened!");
+            };
+            document.querySelector("#id_message_send_input").focus();
+            document.querySelector("#id_message_send_input").onkeyup = function (e) {
+                if (e.keyCode == 13) {
+                    document.querySelector("#id_message_send_button").click();
+                }
+            };
+            document.querySelector("#id_message_send_button").onclick = function (e) {
+                var messageInput = document.querySelector("#id_message_send_input").value;
+                var currentTime = new Date();
+                var time = currentTime.toLocaleTimeString();
+                chatSocket.send(JSON.stringify({
+                    message: messageInput,
+                    username: "{{request.user.username}}",
+                    time: time
+                }));
+            };
+            chatSocket.onmessage = function (e) {
+                const data = JSON.parse(e.data);
+                var messageContainer = document.querySelector("#id_chat_item_container");
+                var div = document.createElement("div");
+                div.className = (data.username === "{{request.user.username}}") ? "chat-message right" : "chat-message left";
+                div.innerHTML = `<div class="message-content">
+                    <div class="user-content">
+                        <span class="message-username">${data.username.charAt(0).toUpperCase() + data.username.slice(1)}</span>
+                        <span class="message-timestamp">${data.time}</span>
+                    </div>
+                    <p class="message-text">${data.message}</p>
+                </div>`;
+                document.querySelector("#id_message_send_input").value = "";
+                messageContainer.appendChild(div);
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            };
+        </script>
+    </body>
+</html>

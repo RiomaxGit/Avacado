@@ -41,18 +41,20 @@ jobs:
         pip install pytest pytest-django channels channels_redis
 
     - name: Set up environment variables
-      run: echo "DATABASE_URL=postgres://test_user:test_password@localhost:5432/test_db" >> $GITHUB_ENV
+      run: |
+      echo "DATABASE_URL=postgres://test_user:test_password@localhost:5432/test_db" >> $GITHUB_ENV
 
     - name: Run migrations
-      run: cd avacado  # Change to the 'avacado' directory
+      run: |
+        cd avacado  # Change to the 'avacado' directory
         python manage.py migrate
 
     - name: Run tests
-      run: cd avacado  # Change to the 'avacado' directory
+      run: |
+        cd avacado  # Change to the 'avacado' directory
         python manage.py test
 
     - name: Login Dockerhub
-      run: run Dockerhub
       env:
         DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}} 
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}

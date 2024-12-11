@@ -54,3 +54,15 @@ jobs:
       run: |
         cd avacado  # Change to the 'avacado' directory
         python manage.py test
+
+    - name: Login Dockerhub
+      env:
+        DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+    - name: Build the docker image
+      run: docker build -t cicd-pipeline .
+    
+    - name: Push to dockerhub
+      run: docker push vaishakhanil111/cicd-pipeline:latest

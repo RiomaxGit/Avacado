@@ -13,3 +13,23 @@ interactive chatting experience.
 
 ### Figma UI:
 [UI Design](https://www.figma.com/file/W88cIOOplUPLUBbk1IpBMb/Untitled?type=design&node-id=1%3A2&mode=design&t=Bk9eVOYEbv4wnGGL-1)
+
+### Running the project:
+
+1. Activate the virtual environment
+```bash
+pipenv shell
+
+```
+
+2. Running the project
+```bash
+python manage.py runserver
+```
+
+Default Port: 8000
+
+3. Visit the page:
+localhost:8000
+
+> Running the project in VSCode debug mode will run on PORT 9000
